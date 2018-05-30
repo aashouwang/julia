@@ -9,10 +9,7 @@ size(F::Adjoint{<:Any,<:Factorization}) = reverse(size(parent(F)))
 size(F::Transpose{<:Any,<:Factorization}) = reverse(size(parent(F)))
 
 checkpositivedefinite(info) = info == 0 || throw(PosDefException(info))
-
-macro assertnonsingular(A, info)
-   :($(esc(info)) == 0 ? $(esc(A)) : throw(SingularException($(esc(info)))))
-end
+checknonsingular(info) = info == 0 || throw(SingularException(info))
 
 """
     issuccess(F::Factorization)
